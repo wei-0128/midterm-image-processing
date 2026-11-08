@@ -1,14 +1,8 @@
 import streamlit as st
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 from PIL import Image
 import io
-import matplotlib.pyplot as plt
-
-# 加入以下兩行來修復中文顯示與負號問題
-plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
-plt.rcParams['axes.unicode_minus'] = False
 
 # 設置 Streamlit 頁面設定
 st.set_page_config(page_title="AI 輔助互動式影像處理與人臉分析工具", layout="wide")
