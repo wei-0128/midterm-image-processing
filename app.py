@@ -243,8 +243,16 @@ if uploaded_file is not None:
             # Haar-Cascade 必須使用灰階影像進行偵測
             gray_img = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
             
-            # 載入 OpenCV 內建的正臉偵測模型
-            cascade_path = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+            # 載入 OpenCV 正臉偵測模型 (加入雲端自動下載防呆機制)
+            import os
+            import urllib.request
+            
+            cascade_path = "haarcascade_frontalface_default.xml"
+            if not os.path.exists(cascade_path):
+                # 若雲端環境找不到內建檔案，自動從 OpenCV 官方下載
+                url = "https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml"
+                urllib.request.urlretrieve(url, cascade_path)
+                
             face_cascade = cv2.CascadeClassifier(cascade_path)
             
             # 使用 detectMultiScale3 以取得權重 (當作 Confidence Score)
